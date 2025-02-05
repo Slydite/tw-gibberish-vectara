@@ -1,0 +1,215 @@
+<template>
+  <div id="app">
+    <header>
+      <h2>Model Evaluation Dashboard</h2>
+    </header>
+    <aside>
+      <nav>
+        <ul>
+          <li>
+            <router-link :to="{ path: '/vectara' }" :class="{ 'active-link': $route.path === '/vectara' }">
+              <DocumentTextIcon class="icon" /> <span class="text">Vectara</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ path: '/gibberish' }" :class="{ 'active-link': $route.path === '/gibberish' }">
+              <SparklesIcon class="icon" /> <span class="text">Gibberish</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{ path: '/input' }" :class="{ 'active-link': $route.path === '/input' }">
+              <PencilSquareIcon class="icon" /> <span class="text">Input</span>
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <main>
+      <router-view />
+    </main>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { DocumentTextIcon, SparklesIcon, PencilSquareIcon } from '@heroicons/vue/24/solid'
+
+const route = useRoute();
+</script>
+
+<style>
+:root {
+--color-background: #141516;
+--color-gradient-start: #3b1070;
+--color-gradient-end: #6d0b3f;
+--color-text: #e8e6e3;
+--color-icon: #e874fc;
+--color-button: #371f80;
+--color-button-hover: #4b2a8e;
+--color-table-header: #271675;
+--color-table-border: #766d61;
+}
+
+body {
+background-color: var(--color-background);
+font-family: 'Roboto', sans-serif;
+margin: 0;
+overflow-x: hidden;
+}
+
+header {
+color: var(--color-text);
+position: fixed;
+top: 0;
+left: 0;
+height: 6vh;
+width: 100%;
+display: flex;
+align-items: center;
+background-image: linear-gradient(to right, var(--color-gradient-start), var(--color-gradient-end));
+padding: 2vh;
+z-index: 1000;
+box-sizing: border-box;
+}
+
+aside {
+width: 60px;
+transition: width 0.3s ease;
+position: fixed;
+top: calc(6vh);
+left: 0;
+height: calc(100vh - 6vh);
+overflow-y: auto;
+overflow-x: hidden;
+background-image: linear-gradient(to bottom, var(--color-gradient-start), var(--color-gradient-end));
+z-index: 1100;
+}
+
+aside:hover {
+width: 200px;
+}
+
+aside nav ul {
+width: 100%;
+list-style-type: none;
+padding: 0;
+margin: 0;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+}
+
+aside nav ul li a,
+aside nav ul li button {
+width: 100%;
+display: flex;
+align-items: center;
+padding: 12px 15px;
+overflow: hidden;
+text-decoration: none;
+color: var(--color-text);
+transition: background-color 0.3s;
+box-sizing: border-box;
+background-color: transparent; 
+}
+
+aside nav ul li.active-link a {
+background-color: var(--color-button); /* Or any other active style */
+color: white;  /* Optional: Change text color for active link */
+}
+aside nav ul li.active-link a .icon{
+  color: white;
+}
+
+aside nav ul li button {
+background-color: var(--color-button);
+}
+
+aside nav ul li button:hover {
+background-color: var(--color-button-hover); 
+}
+
+
+.icon {
+width: 30px;
+height: 30px;
+margin-right: 15px;
+color: var(--color-icon);
+flex-shrink: 0;
+}
+
+.text {
+white-space: nowrap;
+overflow: hidden;
+transition:
+  opacity 0.3s,
+  max-width 0.3s;
+opacity: 0;
+max-width: 0;
+}
+
+aside:hover .text {
+opacity: 1;
+max-width: 150px;
+}
+
+main {
+flex: 1;
+padding: 1rem;
+margin-left: 60px;
+margin-top: 6vh;
+transition: margin-left 0.3s ease;
+background-color: transparent; 
+}
+
+aside:hover + main {
+margin-left: 200px;
+}
+
+@media (max-width: 768px) {
+header {
+  position: relative;
+}
+
+aside {
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: auto;
+  overflow-y: visible;
+  background-image: none;
+  background-color: var(--color-gradient-start); 
+}
+
+aside nav ul {
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+aside nav ul li a,
+aside nav ul li button {
+  flex-direction: column;
+  padding: 10px;
+  background-color: transparent; 
+}
+
+.icon {
+  margin: 0;
+  margin-bottom: 4px;
+  width: 24px;
+  height: 24px;
+}
+
+.text {
+  display: block;
+  font-size: 0.75rem;
+  max-width: none;
+  opacity: 1;
+}
+
+main {
+  margin-left: 0;
+  margin-top: 60px;
+}
+}
+</style>

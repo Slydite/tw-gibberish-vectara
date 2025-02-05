@@ -1,0 +1,22 @@
+# --- Builder Stage ---
+FROM node:18-alpine AS builder
+WORKDIR /app/frontend
+
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm
+RUN pnpm install
+COPY . .
+RUN pnpm build
+
+# --- Production Stage ---
+FROM node:18-alpine
+
+WORKDIR /app
+
+RUN npm install -g serve
+
+COPY --from=builder /app/frontend/dist ./dist
+
+EXPOSE 8080
+
+CMD ["serve", "-s", "dist", "-l", "8080"]

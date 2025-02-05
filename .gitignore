@@ -1,0 +1,4 @@
+frontend/node_modules/
+api/__pycache__/
+.vscode/
+.pnpm-store/
