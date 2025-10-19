@@ -1,4 +1,4 @@
-# TrustWise Task
+# TrustWise
 
 A simple dashboard for text analysis featuring Vectara hallucination scoring and gibberish detection capabilities.
 
